@@ -21,7 +21,10 @@ module Adapters
     end
 
     def get_winners
-
+      json = get_json
+      json.results.collect do |films_array|
+        find_winner(films_array.films)
+      end
     end
 
   end

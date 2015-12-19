@@ -1,28 +1,9 @@
-== README
+# Oscar Movie Winners
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo is built to search through data and return Year-Title-Budget for all winning Oscar movies in the data. After doing this, it should also print out the average budget of all winners.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+To run this code on your own machine, please do the following:
+ - Fork and clone the repo to your machine
+ - In the root dir of this cloned repo, run `bundle install` in your terminal. (Note: if you do not already have bundler, you can run `gem install bundler` first.)
+ - To get the database started up, you will need to run `rake db:create` followed by `rake db:migrate`. (Note, if you do not already have a postgres server running on your computer, you will want to look into installing the software. I would recommend looking to use something like 'brew install postgres' and then checking here:'http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x' to find out how to start the server.)
+ - Once your migrations are run, simply run `rake db:seed` to automatically access the API and load up the database. 
