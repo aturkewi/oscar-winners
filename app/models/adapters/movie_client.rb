@@ -23,16 +23,16 @@ module Adapters
     def get_winners
       json = get_json('http://oscars.yipitdata.com/')
       json.results.collect do |films_array|
-        find_winner(films_array.films)
+        find_winner(films_array.films).tap do |winner|
+          winner[:year] = films_array.year[0,4]
+        end
       end
     end
 
-    def format_year(unformatted_year)
-      date_string = unformatted_year.scan(/\(([^)]+)\)/).flatten.first
-      date_string.strip.split("-").first
+    def format_title(unformatted_title)
+      unformatted_title.gsub(/ *\[[^)]*\] */, "").strip
     end
 
-    # "£3 million [ 1 ]"
     def convert_from_pounds(budget_in_words)
       if budget_in_words[0] == "£"
         budget = budget_in_words.delete("£").delete(",").split(" ")
@@ -59,7 +59,7 @@ module Adapters
         budget = budget_in_words.delete(",").delete("$").to_i
       end
     end
-    # 1981
+
     def convert_to_int(budget_in_words)
       budget_in_words = avg_range(budget_in_words)
       budget_in_words = convert_from_pounds(budget_in_words)
@@ -80,11 +80,10 @@ module Adapters
       end
     end
 
-    # need to get Year-Title-Budget
     def winner_data(winner)
       results=get_json(winner['Detail URL'])
-      year = format_year(results[" Release dates "])
-      title = results.Title
+      year = winner.year
+      title = format_title(winner.Film)
       budget = format_budget(results.Budget)
       puts "#{year} - #{title} - #{budget}"
     end
