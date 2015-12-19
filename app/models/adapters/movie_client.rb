@@ -76,7 +76,7 @@ module Adapters
         budget_in_words = clear_off_extras(unformatted_budget)
         convert_to_int(budget_in_words)
       else
-        "NO BUDGET NO BUDGET NO BUDGET NO BUDGET NO BUDGET NO BUDGET "
+        "NO BUDGET"
       end
     end
 
@@ -85,7 +85,7 @@ module Adapters
       year = winner.year
       title = format_title(winner.Film)
       budget = format_budget(results.Budget)
-      puts "#{year} - #{title} - #{budget}"
+      Movie.create(title:title, year:year, budget:budget) unless budget == "NO BUDGET"
     end
 
     def seed
