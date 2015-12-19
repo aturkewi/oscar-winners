@@ -1,0 +1,7 @@
+<h1>Oscar Winning Movies:</h1>
+<h2>Average movie budget: $<%= @average_budget %></h2>
+<ul>
+  <% @movies.each do |movie| %>
+    <%= render partial:'movie.html.erb', locals:{movie: movie}%>
+  <% end %>
+</ul>

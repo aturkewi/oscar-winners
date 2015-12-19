@@ -12,6 +12,8 @@
 
 class Movie < ActiveRecord::Base
 
-  attr_reader :title, :year, :budget
+  def self.average_budget
+    average("budget").to_i
+  end
 
 end
